@@ -19,7 +19,6 @@
           <th>Registration Number</th>
           <th>Current Class</th>
           <th>Gender</th>
-          <th>Mobile Phone Number</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -28,11 +27,10 @@
         {% for student in object_list %}
           <tr class='clickable-row' data-href="{% url 'student-detail' student.id %}">
             <td>{{ forloop.counter}}</td>
-            <td>{{ student.surname}} {{student.firstname }} {{student.other_name }}</td>
+            <td>{{ student.surname}} {{student.firstname }}</td>
             <td>{{ student.registration_number}}</td>
             <td>{{ student.current_class}}</td>
             <td>{{ student.get_gender_display}}</td>
-            <td>{{ student.parent_mobile_number}}</td>
             <td>{{ student.get_current_status_display}}</td>
           </tr>
         {% endfor %}
