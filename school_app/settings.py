@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "apps.corecode",
     "apps.students",
     "apps.staffs",
-    "apps.finance",
     "apps.result",
 ]
 

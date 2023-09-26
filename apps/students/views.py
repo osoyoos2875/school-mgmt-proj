@@ -8,8 +8,6 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, View
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from apps.finance.models import Invoice
-
 from .models import Student, StudentBulkUpload
 
 
@@ -24,7 +22,6 @@ class StudentDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentDetailView, self).get_context_data(**kwargs)
-        context["payments"] = Invoice.objects.filter(student=self.object)
         return context
 
 
@@ -36,8 +33,6 @@ class StudentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_form(self):
         """add date picker in forms"""
         form = super(StudentCreateView, self).get_form()
-        form.fields["date_of_birth"].widget = widgets.DateInput(attrs={"type": "date"})
-        form.fields["address"].widget = widgets.Textarea(attrs={"rows": 2})
         form.fields["others"].widget = widgets.Textarea(attrs={"rows": 2})
         return form
 
@@ -50,13 +45,10 @@ class StudentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_form(self):
         """add date picker in forms"""
         form = super(StudentUpdateView, self).get_form()
-        form.fields["date_of_birth"].widget = widgets.DateInput(attrs={"type": "date"})
         form.fields["date_of_admission"].widget = widgets.DateInput(
             attrs={"type": "date"}
         )
-        form.fields["address"].widget = widgets.Textarea(attrs={"rows": 2})
         form.fields["others"].widget = widgets.Textarea(attrs={"rows": 2})
-        # form.fields['passport'].widget = widgets.FileInput()
         return form
 
 
@@ -84,10 +76,7 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
                 "registration_number",
                 "surname",
                 "firstname",
-                "other_names",
                 "gender",
-                "parent_number",
-                "address",
                 "current_class",
             ]
         )
